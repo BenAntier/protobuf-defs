@@ -32,23 +32,33 @@ message Pair {
 }
 
 service Logger {
-  rpc Event (EventRequest) returns (EventResponse) {}
-  rpc Error (ErrorRequest) returns (ErrorResponse) {}
+  rpc LogEvent (Event) returns (Empty) {}
+  rpc LogError (Error) returns (Empty) {}
 }
 
-message EventRequest {
-  Client client = 1;
-  User user = 2;
-  repeated Pair custom = 3;
-}
+message Event {
+  enum Type {
+    BOOTLOADER_LOADED = 0;
+    DISCOVERY_LOADED = 1;
+    SESSION_PING = 2;
+    PAGE_VIEW = 3;
+    IMPRESSION = 4;
+    CLICK = 5;
+    SKIP = 6;
+    ON_SCREEN = 7;
+  }
 
-message EventResponse { }
-
-message ErrorRequest {
-  uint32 error_code = 1;
+  Type type = 1;
   Client client = 2;
   User user = 3;
   repeated Pair custom = 4;
 }
 
-message ErrorResponse { }
+message Empty { }
+
+message Error {
+  uint32 error_code = 1;
+  Client client = 2;
+  User user = 3;
+  repeated Pair custom = 4;
+}

@@ -12,14 +12,12 @@ import (
 type loggerService struct {
 }
 
-func (ls *loggerService) Event(ctx context.Context, er *EventRequest) (*EventResponse, error) {
-
-	return &EventResponse{}, nil
+func (ls *loggerService) LogEvent(ctx context.Context, er *Event) (*Empty, error) {
+	return &Empty{}, nil
 }
 
-func (ls *loggerService) Error(ctx context.Context, er *ErrorRequest) (*ErrorResponse, error) {
-
-	return &ErrorResponse{}, nil
+func (ls *loggerService) LogError(ctx context.Context, er *Error) (*Empty, error) {
+	return &Empty{}, nil
 }
 
 const serverAddr = "127.0.0.1"
@@ -50,7 +48,8 @@ func TestEvent(t *testing.T) {
 	defer conn.Close()
 	client := NewLoggerClient(conn)
 
-	er := &EventRequest{
+	er := &Event{
+		Type: Event_PAGE_VIEW,
 		Client: &Client{
 			PID: "abc",
 			SID: "def",
@@ -76,7 +75,7 @@ func TestEvent(t *testing.T) {
 		},
 	}
 
-	if _, err := client.Event(context.Background(), er); err != nil {
+	if _, err := client.LogEvent(context.Background(), er); err != nil {
 		t.Fatalf("Event returned an unexpected error: %s", err)
 	}
 }
@@ -92,7 +91,7 @@ func TestError(t *testing.T) {
 	defer conn.Close()
 	client := NewLoggerClient(conn)
 
-	er := &ErrorRequest{
+	er := &Error{
 		Client: &Client{
 			PID: "abc",
 			SID: "def",
@@ -119,7 +118,7 @@ func TestError(t *testing.T) {
 		ErrorCode: 1000,
 	}
 
-	if _, err := client.Error(context.Background(), er); err != nil {
+	if _, err := client.LogError(context.Background(), er); err != nil {
 		t.Fatalf("Error returned an unexpected error: %s", err)
 	}
 }
