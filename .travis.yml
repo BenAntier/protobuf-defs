@@ -1,0 +1,24 @@
+language: go
+go:
+  - 1.6
+  - tip
+matrix:
+  allow_failures:
+    - go: tip
+env:
+  global:
+    - PROTOBUF_VERSION=3.0.0-beta-3.1
+cache:
+  directories:
+    - $HOME/protobuf-$PROTOBUF_VERSION
+notifications:
+  slack:
+    # publica channels #engineering
+     secure: "qRZTT9dQehpIbCHSUQThwaEy7aq2XBxJWo683FhnsgT2eP/hfVoBh5n2Jl6ryxEFAGGso0R6r/dnfaZVHc2O0RByKSSOTWfWC1vWkgvuFTsF69YEwhQ2gq5P1hYAoZrj2D5cE7g4NG8g8Te+aDPT4D/lJnpzt+8gDZjxheL9SexTr1filDnLxUgXecWKZzcMoXtSp6RXm0zIJHYNn3yyIxpTKjWzEOHiUoGfVREPdcCC4SmsnBdeVoE+C0zA4cCR0kFfCa7BvaLbO8JUBjl9amCo7lCHWu6F/MjDVEYx1KWKJIfBvGc+U0rKfFa6Nxi/YQin19Ac43fK7hlRkXPEpUlQ4hlmg98yGRNyGKMs82ZXcfIVUfFroFeNSC7+olM26rvlyBqAdFgDlV+ouc1HyvDgFzrXTk39ZKlKzKrZxB6X7yyzOHDuD08up5H2QJMZZI62YmIkxqbzu7huoJ5Z2HV1brYxSxrLTlDIVrj+IHdwaUuIYMskCPUmHT7cCoJVJ6ao/dnpUlqLFZFOGLdCGl7iqBnYBbkt1YjZCCw18CisqeOi+HN2BFn7FlrQz5wpHA018Ki2QneeqVc+lj8I13O43fuBCuBvWn+yu2zlP4skOy+dkKLd5NSSHDKO7Bseg3M/Zrp4oKUchaCsZsERE2ZPGO7PWd3GJQrBGTtU5zE="
+install:
+  - .travis/install-protobuf.sh
+  - export PATH=$PATH:$HOME/protobuf-$PROTOBUF_VERSION/bin
+  - go get -u github.com/golang/protobuf/protoc-gen-go
+  - make get-deps
+script:
+  - make -B check-proto-pre-compiled test
