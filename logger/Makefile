@@ -11,4 +11,4 @@ test: proto
 proto: service.pb.go
 
 service.pb.go:
-	protoc -I.. -I. service.proto --go_out=plugins=grpc:.
+	protoc -I.. -I. service.proto --go_out=plugins=grpc:. --java_out=.

@@ -2,6 +2,13 @@ syntax = "proto3";
 
 package logger;
 
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.publica.storm.s3.proto";
+option java_outer_classname = "LoggerProto";
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+
 message Client {
   string pID = 1;
   string sID = 2;
@@ -49,16 +56,18 @@ message Event {
   }
 
   Type type = 1;
-  Client client = 2;
-  User user = 3;
-  repeated Pair custom = 4;
+  google.protobuf.Timestamp timestamp = 2;
+  Client client = 3;
+  User user = 4;
+  repeated Pair custom = 5;
 }
 
 message Empty { }
 
 message Error {
   uint32 error_code = 1;
-  Client client = 2;
-  User user = 3;
-  repeated Pair custom = 4;
+  google.protobuf.Timestamp timestamp = 2;
+  Client client = 3;
+  User user = 4;
+  repeated Pair custom = 5;
 }
