@@ -62,9 +62,17 @@ func TestEvent(t *testing.T) {
 			PuID:      "PUID 123",
 			UserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
 			Location: &User_GeoIP{
-				IP:      "8.8.8.8",
-				Country: "USA",
-				City:    "Palo Alto",
+				IP:         &IP{V4: "8.8.8.8"},
+				Country:    "US",
+				City:       "Mountain View",
+				PostalCode: "94035",
+				MetroCode:  807,
+				Isp: &User_GeoIP_ISP{
+					AutonomousSystemNumber:       123,
+					AutonomousSystemOrganization: "Comcast",
+					Isp:          "Comcast ISP",
+					Organization: "Comcast Organization",
+				},
 			},
 		},
 		Custom: []*Pair{
@@ -104,9 +112,17 @@ func TestError(t *testing.T) {
 			PuID:      "PUID 123",
 			UserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
 			Location: &User_GeoIP{
-				IP:      "8.8.8.8",
-				Country: "USA",
-				City:    "Palo Alto",
+				IP:         &IP{V4: "8.8.8.8"},
+				Country:    "US",
+				City:       "Mountain View",
+				PostalCode: "94035",
+				MetroCode:  807,
+				Isp: &User_GeoIP_ISP{
+					AutonomousSystemNumber:       123,
+					AutonomousSystemOrganization: "Comcast",
+					Isp:          "Comcast ISP",
+					Organization: "Comcast Organization",
+				},
 			},
 		},
 		Custom: []*Pair{

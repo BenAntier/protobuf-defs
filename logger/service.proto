@@ -7,11 +7,27 @@ message Client {
   string sID = 2;
 }
 
+message IP {
+  string v4 = 1;
+  string v6 = 2;
+}
+
 message User {
   message GeoIP {
-    string IP = 1;
+    message ISP {
+      uint32 autonomous_system_number = 1;
+      string autonomous_system_organization = 2;
+      string isp = 3;
+      string organization = 4;
+    }
+
+    IP IP = 1;
     string country = 2;
     string city = 3;
+    string postal_code = 4;
+    string time_zone = 5;
+    uint32 metro_code = 6;
+    ISP isp = 7;
   }
 
   string sessID = 1;
