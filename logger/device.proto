@@ -1,0 +1,32 @@
+syntax = "proto3";
+package logger;
+
+// Device represents a device ID or a cookie ID depending on where the event
+// was sent from.
+message Device {
+  // Type represents the type of the device ID
+  enum Type {
+    // UNKNOWN is the default device ID and should be considered invalid.
+    UNKNOWN = 0;
+
+    // DESKTOP_COOKIE represents a cookie ID that was sent from a desktop
+    // browser.
+    DESKTOP_COOKIE = 100;
+    // MOBILE_COOKIE represents a cookie ID that was sent from a mobile phone
+    // browser.
+    MOBILE_COOKIE = 101;
+
+    // IDFA represents an identifier for advertisers and is available only on
+    // iOS devices.
+    IDFA = 200;
+    // AAID represents an identifier for advertisers and is available only on
+    // Android devices.
+    AAID = 201;
+  }
+
+  // Type represents the type of the cookie or device id recorded in the id
+  // below.
+  Type type = 1;
+  // id can be our cookie id, IDFA or AAID.
+  string id = 2;
+}

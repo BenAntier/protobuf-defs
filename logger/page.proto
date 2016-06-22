@@ -1,0 +1,33 @@
+syntax = "proto3";
+package logger;
+
+import "google/protobuf/duration.proto";
+
+// Page defines a struct to collect all the information about a Page like the
+// URL, the path, the referral etc...
+message Page {
+  // Scheme defines a struct for the scheme.
+  enum Scheme {
+    UNKNOWN = 0;
+    HTTP = 1;
+    HTTPS = 2;
+  }
+
+  // url is the full URL including the scheme, the domain, the path and the
+  // params.
+  string url = 1;
+  // scheme is either http or https and is defined in the Scheme above.
+  Scheme scheme = 2;
+  // domain is the domain (including any sub-domain) for the page.
+  string domain = 3;
+  // path is the path of the page (without the domain or the query params).
+  string path = 4;
+  // params is a map<string, string> that represents the query params.
+  map<string, string> params = 5;
+  // referrer is the referrer for the page.
+  string referrer = 6;
+  // load_time is the duration calculated between 'navigationStart' and
+  // 'loadEventEnd' available on the 'window.performance.timing' browser
+  // JavaScript object.
+  google.protobuf.Duration load_time = 7;
+}

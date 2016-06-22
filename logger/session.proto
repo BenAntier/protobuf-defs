@@ -1,0 +1,18 @@
+syntax = "proto3";
+package logger;
+
+import "wurfl.proto";
+
+// Session represents information about a user session.
+message Session {
+  // id represents the session id
+  string id = 1;
+  // user_agent represents the user agent as sent by the browser.
+  string user_agent = 2;
+  // wurfl is an instance of Wurfl defined in wurfl.proto.
+  Wurfl wurfl = 3;
+  // adblocker represents the adblocker status of the session.
+  bool adblocker = 4;
+  // is_bot if true means the user was detected as a bot.
+  bool is_bot = 5;
+}

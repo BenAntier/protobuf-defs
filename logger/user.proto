@@ -1,0 +1,21 @@
+syntax = "proto3";
+package logger;
+
+import "device.proto";
+import "geoip.proto";
+import "page.proto";
+import "session.proto";
+
+// User represents the end-user of the website.
+message User {
+  // device is an instance of the Device struct defined above.
+  Device device = 1;
+  // publisher_device is an instance of the Device struct defined above.
+  Device publisher_device = 2;
+  // session is an instance of the Session struct defined above.
+  Session session = 3;
+  // page is an instance of the Page struct defined above.
+  Page page = 4;
+  // location is an instance of the GeoIp struct defined above.
+  GeoIp location = 5;
+}

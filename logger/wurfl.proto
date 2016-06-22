@@ -1,0 +1,639 @@
+syntax = "proto3";
+package logger;
+
+message Wurfl {}
+
+// TODO: Uncomment and define Wurfl when we are ready for it.
+/*
+
+// Wurfl (Wireless Universal Resource FiLe) is a struct representing all the
+// data provided by WURFL. For more information on the fields and the possible
+// values, please see the documentation at
+// https://www.scientiamobile.com/wurflCapability
+message Wurfl {
+  Ajax ajax = 1;
+  Bearer bearer = 2;
+  Bugs bugs = 3;
+  Cache cache = 4;
+  Chips chips = 5;
+  ChtmlUi chtml_ui = 6;
+  Css css = 7;
+  Display display = 8;
+  Drm drm = 9;
+  FlashLite flash_lite = 10;
+  HtmlUi html_ui = 11;
+  ImageFormat image_format = 12;
+  J2me j2me = 13;
+  Markup markup = 14;
+  Mms mms = 15;
+  ObjectDownload object_download = 16;
+  Pdf pdf = 17;
+  Playback playback = 18;
+  ProductInfo product_info = 19;
+  Rss rss = 20;
+  Security security = 21;
+  Smarttv smarttv = 22;
+  Sms sms = 23;
+  SoundFormat sound_format = 24;
+  Storage storage = 25;
+  Streaming streaming = 26;
+  Transcoding transcoding = 27;
+  WapPush wap_push = 28;
+  WmlUi wml_ui = 29;
+  Wta wta = 30;
+  XhtmlUi xhtml_ui = 31;
+}
+
+message ProductInfo {
+  bool can_assign_phone_number = 1;
+  bool can_skip_aligned_link_row = 2;
+  bool device_claims_web_support = 3;
+  bool has_qwerty_keyboard = 4;
+  bool is_tablet = 5;
+  bool is_wireless_device = 6;
+  bool unique = 7;
+  string brand_name = 8;
+  string device_os = 9;
+  string device_os_version = 10;
+  string marketing_name = 11;
+  string mobile_browser = 12;
+  string mobile_browser_version = 13;
+  string model_extra_info = 14;
+  string model_name = 15;
+  string pointing_method = 16;
+  string release_date = 17;
+  string uaprof = 18;
+  string uaprof2 = 19;
+  string uaprof3 = 20;
+  string ununiqueness_handler = 21;
+  uint32 nokia_edition = 22;
+  uint32 nokia_feature_pack = 23;
+  uint32 nokia_series = 24;
+}
+
+message WmlUi {
+  bool access_key_support = 1;
+  bool break_list_of_links_with_br_element_recommended = 2;
+  bool built_in_back_button_support = 3;
+  bool card_title_support = 4;
+  bool deck_prefetch_support = 5;
+  bool elective_forms_recommended = 6;
+  bool icons_on_menu_items_support = 7;
+  bool image_as_link_support = 8;
+  bool insert_br_element_after_widget_recommended = 9;
+  bool menu_with_list_of_links_recommended = 10;
+  bool menu_with_select_element_recommended = 11;
+  bool numbered_menus = 12;
+  bool opwv_wml_extensions_support = 13;
+  bool proportional_font = 14;
+  bool softkey_support = 15;
+  bool table_support = 16;
+  bool times_square_mode_support = 17;
+  bool wizards_recommended = 18;
+  bool wml_can_display_images_and_text_on_same_line = 19;
+  bool wml_displays_image_in_center = 20;
+  bool wrap_mode_support = 21;
+  string wml_make_phone_call_string = 22;
+}
+
+message ChtmlUi {
+  bool chtml_can_display_images_and_text_on_same_line = 1;
+  bool chtml_display_accesskey = 2;
+  bool chtml_displays_image_in_center = 3;
+  bool chtml_table_support = 4;
+  bool emoji = 5;
+  string chtml_make_phone_call_string = 6;
+  string imode_region = 7;
+}
+
+message XhtmlUi {
+  bool accept_third_party_cookie = 1;
+  bool cookie_support = 2;
+  bool opwv_xhtml_extensions_support = 3;
+  bool xhtml_allows_disabled_form_elements = 4;
+  bool xhtml_autoexpand_select = 5;
+  bool xhtml_avoid_accesskeys = 6;
+  bool xhtml_display_accesskey = 7;
+  bool xhtml_document_title_support = 8;
+  bool xhtml_format_as_attribute = 9;
+  bool xhtml_format_as_css_property = 10;
+  bool xhtml_honors_bgcolor = 11;
+  bool xhtml_marquee_as_css_property = 12;
+  bool xhtml_nowrap_mode = 13;
+  bool xhtml_select_as_dropdown = 14;
+  bool xhtml_select_as_popup = 15;
+  bool xhtml_select_as_radiobutton = 16;
+  bool xhtml_support_wml2_namespace = 17;
+  bool xhtml_supports_css_cell_table_coloring = 18;
+  bool xhtml_supports_forms_in_table = 19;
+  bool xhtml_supports_inline_input = 20;
+  bool xhtml_supports_invisible_text = 21;
+  bool xhtml_supports_monospace_font = 22;
+  bool xhtml_supports_table_for_layout = 23;
+  bool xhtml_table_support = 24;
+  string xhtml_can_embed_video = 25;
+  string xhtml_file_upload = 26;
+  string xhtml_make_phone_call_string = 27;
+  string xhtml_preferred_charset = 28;
+  string xhtml_readable_background_color1 = 29;
+  string xhtml_readable_background_color2 = 30;
+  string xhtml_send_mms_string = 31;
+  string xhtml_send_sms_string = 32;
+  string xhtml_supports_iframe = 33;
+  string xhtmlmp_preferred_mime_type = 34;
+}
+
+message Ajax {
+  bool ajax_manipulate_css = 1;
+  bool ajax_manipulate_dom = 2;
+  bool ajax_support_event_listener = 3;
+  bool ajax_support_events = 4;
+  bool ajax_support_getelementbyid = 5;
+  bool ajax_support_inner_html = 6;
+  bool ajax_support_javascript = 7;
+  string ajax_preferred_geoloc_api = 8;
+  string ajax_xhr_type = 9;
+}
+
+message Markup {
+  bool html_web_3_2 = 1;
+  bool html_web_4_0 = 2;
+  bool html_wi_imode_compact_generic = 3;
+  bool html_wi_imode_html_1 = 4;
+  bool html_wi_imode_html_2 = 5;
+  bool html_wi_imode_html_3 = 6;
+  bool html_wi_imode_html_4 = 7;
+  bool html_wi_imode_html_5 = 8;
+  bool html_wi_imode_htmlx_1 = 9;
+  bool html_wi_imode_htmlx_1_1 = 10;
+  bool html_wi_oma_xhtmlmp_1_0 = 11;
+  bool html_wi_w3_xhtmlbasic = 12;
+  bool multipart_support = 13;
+  bool voicexml = 14;
+  bool wml_1_1 = 15;
+  bool wml_1_2 = 16;
+  bool wml_1_3 = 17;
+  string preferred_markup = 18;
+  uint32 xhtml_support_level = 19;
+}
+
+message Cache {
+  bool time_to_live_support = 1;
+  bool total_cache_disable_support = 2;
+}
+
+message Display {
+  bool dual_orientation = 1;
+  uint32 columns = 2;
+  uint32 max_image_height = 3;
+  uint32 max_image_width = 4;
+  uint32 physical_screen_height = 5;
+  uint32 physical_screen_width = 6;
+  uint32 resolution_height = 7;
+  uint32 resolution_width = 8;
+  uint32 rows = 9;
+}
+
+message ImageFormat {
+  bool bmp = 1;
+  bool epoc_bmp = 2;
+  bool gif = 3;
+  bool gif_animated = 4;
+  bool greyscale = 5;
+  bool jpg = 6;
+  bool png = 7;
+  bool svgt_1_1 = 8;
+  bool svgt_1_1_plus = 9;
+  bool tiff = 10;
+  bool transparent_png_alpha = 11;
+  bool transparent_png_index = 12;
+  bool wbmp = 13;
+  uint32 colors = 14;
+}
+
+message Bugs {
+  bool basic_authentication_support = 1;
+  bool empty_option_value_support = 2;
+  bool emptyok = 3;
+  bool post_method_support = 4;
+}
+
+message Wta {
+  bool nokia_voice_call = 1;
+  bool wta_misc = 2;
+  bool wta_pdc = 3;
+  bool wta_phonebook = 4;
+  bool wta_voice_call = 5;
+}
+
+message Security {
+  bool https_support = 1;
+  bool phone_id_provided = 2;
+}
+
+message Bearer {
+  bool has_cellular_radio = 1;
+  bool sdio = 2;
+  bool vpn = 3;
+  bool wifi = 4;
+  uint32 max_data_rate = 5;
+}
+
+message Storage {
+  uint32 max_deck_size = 1;
+  uint32 max_length_of_password = 2;
+  uint32 max_length_of_username = 3;
+  uint32 max_no_of_bookmarks = 4;
+  uint32 max_no_of_connection_settings = 5;
+  uint32 max_object_size = 6;
+  uint32 max_url_length_bookmark = 7;
+  uint32 max_url_length_cached_page = 8;
+  uint32 max_url_length_homepage = 9;
+  uint32 max_url_length_in_requests = 10;
+}
+
+message ObjectDownload {
+  bool directdownload_support = 1;
+  bool downloadfun_support = 2;
+  bool inline_support = 3;
+  bool oma_support = 4;
+  bool picture = 5;
+  bool picture_bmp = 6;
+  bool picture_gif = 7;
+  bool picture_greyscale = 8;
+  bool picture_jpg = 9;
+  bool picture_png = 10;
+  bool picture_wbmp = 11;
+  bool ringtone = 12;
+  bool ringtone_3gpp = 13;
+  bool ringtone_aac = 14;
+  bool ringtone_amr = 15;
+  bool ringtone_awb = 16;
+  bool ringtone_compactmidi = 17;
+  bool ringtone_digiplug = 18;
+  bool ringtone_imelody = 19;
+  bool ringtone_midi_monophonic = 20;
+  bool ringtone_midi_polyphonic = 21;
+  bool ringtone_mmf = 22;
+  bool ringtone_mp3 = 23;
+  bool ringtone_qcelp = 24;
+  bool ringtone_rmf = 25;
+  bool ringtone_spmidi = 26;
+  bool ringtone_wav = 27;
+  bool ringtone_xmf = 28;
+  bool screensaver = 29;
+  bool screensaver_bmp = 30;
+  bool screensaver_gif = 31;
+  bool screensaver_greyscale = 32;
+  bool screensaver_jpg = 33;
+  bool screensaver_png = 34;
+  bool screensaver_wbmp = 35;
+  bool video = 36;
+  bool wallpaper = 37;
+  bool wallpaper_bmp = 38;
+  bool wallpaper_gif = 39;
+  bool wallpaper_greyscale = 40;
+  bool wallpaper_jpg = 41;
+  bool wallpaper_png = 42;
+  bool wallpaper_tiff = 43;
+  bool wallpaper_wbmp = 44;
+  string picture_resize = 45;
+  string screensaver_resize = 46;
+  string wallpaper_resize = 47;
+  uint32 picture_colors = 48;
+  uint32 picture_df_size_limit = 49;
+  uint32 picture_directdownload_size_limit = 50;
+  uint32 picture_inline_size_limit = 51;
+  uint32 picture_max_height = 52;
+  uint32 picture_max_width = 53;
+  uint32 picture_oma_size_limit = 54;
+  uint32 picture_preferred_height = 55;
+  uint32 picture_preferred_width = 56;
+  uint32 ringtone_df_size_limit = 57;
+  uint32 ringtone_directdownload_size_limit = 58;
+  uint32 ringtone_inline_size_limit = 59;
+  uint32 ringtone_oma_size_limit = 60;
+  uint32 ringtone_voices = 61;
+  uint32 screensaver_colors = 62;
+  uint32 screensaver_df_size_limit = 63;
+  uint32 screensaver_directdownload_size_limit = 64;
+  uint32 screensaver_inline_size_limit = 65;
+  uint32 screensaver_max_height = 66;
+  uint32 screensaver_max_width = 67;
+  uint32 screensaver_oma_size_limit = 68;
+  uint32 screensaver_preferred_height = 69;
+  uint32 screensaver_preferred_width = 70;
+  uint32 wallpaper_colors = 71;
+  uint32 wallpaper_df_size_limit = 72;
+  uint32 wallpaper_directdownload_size_limit = 73;
+  uint32 wallpaper_inline_size_limit = 74;
+  uint32 wallpaper_max_height = 75;
+  uint32 wallpaper_max_width = 76;
+  uint32 wallpaper_oma_size_limit = 77;
+  uint32 wallpaper_preferred_height = 78;
+  uint32 wallpaper_preferred_width = 79;
+}
+
+message Drm {
+  bool oma_v_1_0_combined_delivery = 1;
+  bool oma_v_1_0_forwardlock = 2;
+  bool oma_v_1_0_separate_delivery = 3;
+}
+
+message Streaming {
+  bool streaming_3g2 = 1;
+  bool streaming_3gpp = 2;
+  bool streaming_flv = 3;
+  bool streaming_mov = 4;
+  bool streaming_mp4 = 5;
+  bool streaming_video = 6;
+  sint32 streaming_vcodec_h263_0 = 7;
+  sint32 streaming_vcodec_h263_3 = 8;
+  sint32 streaming_vcodec_h264_bp = 9;
+  sint32 streaming_vcodec_mpeg4_asp = 10;
+  sint32 streaming_vcodec_mpeg4_sp = 11;
+  string streaming_acodec_aac = 12;
+  string streaming_acodec_amr = 13;
+  string streaming_preferred_protocol = 14;
+  string streaming_real_media = 15;
+  string streaming_wmv = 16;
+  uint32 streaming_video_size_limit = 17;
+}
+
+message WapPush {
+  bool ascii_support = 1;
+  bool connectionless_cache_operation = 2;
+  bool connectionless_service_indication = 3;
+  bool connectionless_service_load = 4;
+  bool connectionoriented_confirmed_cache_operation = 5;
+  bool connectionoriented_confirmed_service_indication = 6;
+  bool connectionoriented_confirmed_service_load = 7;
+  bool connectionoriented_unconfirmed_cache_operation = 8;
+  bool connectionoriented_unconfirmed_service_indication = 9;
+  bool connectionoriented_unconfirmed_service_load = 10;
+  bool expiration_date = 11;
+  bool iso8859_support = 12;
+  bool utf8_support = 13;
+  bool wap_push_support = 14;
+}
+
+message J2me {
+  bool doja_1_0 = 1;
+  bool doja_1_5 = 2;
+  bool doja_2_0 = 3;
+  bool doja_2_1 = 4;
+  bool doja_2_2 = 5;
+  bool doja_3_0 = 6;
+  bool doja_3_5 = 7;
+  bool doja_4_0 = 8;
+  bool j2me_3dapi = 9;
+  bool j2me_3gpp = 10;
+  bool j2me_aac = 11;
+  bool j2me_amr = 12;
+  bool j2me_au = 13;
+  bool j2me_audio_capture_enabled = 14;
+  bool j2me_bmp = 15;
+  bool j2me_bmp3 = 16;
+  bool j2me_btapi = 17;
+  bool j2me_cldc_1_0 = 18;
+  bool j2me_cldc_1_1 = 19;
+  bool j2me_datefield_broken = 20;
+  bool j2me_datefield_no_accepts_null_date = 21;
+  bool j2me_gif = 22;
+  bool j2me_gif89a = 23;
+  bool j2me_h263 = 24;
+  bool j2me_http = 25;
+  bool j2me_https = 26;
+  bool j2me_imelody = 27;
+  bool j2me_jpg = 28;
+  bool j2me_jtwi = 29;
+  bool j2me_locapi = 30;
+  bool j2me_midi = 31;
+  bool j2me_midp_1_0 = 32;
+  bool j2me_midp_2_0 = 33;
+  bool j2me_mmapi_1_0 = 34;
+  bool j2me_mmapi_1_1 = 35;
+  bool j2me_motorola_lwt = 36;
+  bool j2me_mp3 = 37;
+  bool j2me_mp4 = 38;
+  bool j2me_mpeg4 = 39;
+  bool j2me_nokia_ui = 40;
+  bool j2me_photo_capture_enabled = 41;
+  bool j2me_png = 42;
+  bool j2me_real8 = 43;
+  bool j2me_realaudio = 44;
+  bool j2me_realmedia = 45;
+  bool j2me_realvideo = 46;
+  bool j2me_rmf = 47;
+  bool j2me_serial = 48;
+  bool j2me_siemens_color_game = 49;
+  bool j2me_siemens_extension = 50;
+  bool j2me_socket = 51;
+  bool j2me_svgt = 52;
+  bool j2me_udp = 53;
+  bool j2me_video_capture_enabled = 54;
+  bool j2me_wav = 55;
+  bool j2me_wbmp = 56;
+  bool j2me_wma = 57;
+  bool j2me_wmapi_1_0 = 58;
+  bool j2me_wmapi_1_1 = 59;
+  bool j2me_wmapi_2_0 = 60;
+  bool j2me_xmf = 61;
+  string j2me_capture_image_formats = 62;
+  uint32 j2me_bits_per_pixel = 63;
+  uint32 j2me_canvas_height = 64;
+  uint32 j2me_canvas_width = 65;
+  uint32 j2me_clear_key_code = 66;
+  uint32 j2me_heap_size = 67;
+  uint32 j2me_left_softkey_code = 68;
+  uint32 j2me_max_jar_size = 69;
+  uint32 j2me_max_record_store_size = 70;
+  uint32 j2me_middle_softkey_code = 71;
+  uint32 j2me_return_key_code = 72;
+  uint32 j2me_right_softkey_code = 73;
+  uint32 j2me_screen_height = 74;
+  uint32 j2me_screen_width = 75;
+  uint32 j2me_select_key_code = 76;
+  uint32 j2me_storage_size = 77;
+}
+
+message Mms {
+  bool built_in_camera = 1;
+  bool built_in_recorder = 2;
+  bool mms_3gpp = 3;
+  bool mms_3gpp2 = 4;
+  bool mms_amr = 5;
+  bool mms_bmp = 6;
+  bool mms_evrc = 7;
+  bool mms_gif_animated = 8;
+  bool mms_gif_static = 9;
+  bool mms_jad = 10;
+  bool mms_jar = 11;
+  bool mms_jpeg_baseline = 12;
+  bool mms_jpeg_progressive = 13;
+  bool mms_midi_monophonic = 14;
+  bool mms_midi_polyphonic = 15;
+  bool mms_mmf = 16;
+  bool mms_mp3 = 17;
+  bool mms_mp4 = 18;
+  bool mms_nokia_3dscreensaver = 19;
+  bool mms_nokia_operatorlogo = 20;
+  bool mms_nokia_ringingtone = 21;
+  bool mms_nokia_wallpaper = 22;
+  bool mms_ota_bitmap = 23;
+  bool mms_png = 24;
+  bool mms_qcelp = 25;
+  bool mms_rmf = 26;
+  bool mms_spmidi = 27;
+  bool mms_symbian_install = 28;
+  bool mms_vcalendar = 29;
+  bool mms_vcard = 30;
+  bool mms_video = 31;
+  bool mms_wav = 32;
+  bool mms_wbmp = 33;
+  bool mms_wbxml = 34;
+  bool mms_wml = 35;
+  bool mms_wmlc = 36;
+  bool mms_xmf = 37;
+  bool receiver = 38;
+  bool sender = 39;
+  uint32 mms_max_frame_rate = 40;
+  uint32 mms_max_height = 41;
+  uint32 mms_max_size = 42;
+  uint32 mms_max_width = 43;
+  uint32 mms_midi_polyphonic_voices = 44;
+}
+
+message Sms {
+  bool callericon = 1;
+  bool ems = 2;
+  bool ems_imelody = 3;
+  bool ems_odi = 4;
+  bool ems_upi = 5;
+  bool ems_variablesizedpictures = 6;
+  bool gprtf = 7;
+  bool largeoperatorlogo = 8;
+  bool nokiaring = 9;
+  bool nokiavcal = 10;
+  bool nokiavcard = 11;
+  bool operatorlogo = 12;
+  bool panasonic = 13;
+  bool picturemessage = 14;
+  bool sagem_v1 = 15;
+  bool sagem_v2 = 16;
+  bool sckl_groupgraphic = 17;
+  bool sckl_operatorlogo = 18;
+  bool sckl_ringtone = 19;
+  bool sckl_vcalendar = 20;
+  bool sckl_vcard = 21;
+  bool siemens_ota = 22;
+  bool sms_enabled = 23;
+  bool text_imelody = 24;
+  uint32 ems_version = 25;
+  uint32 siemens_logo_height = 26;
+  uint32 siemens_logo_width = 27;
+  uint32 siemens_screensaver_height = 28;
+  uint32 siemens_screensaver_width = 29;
+}
+
+message SoundFormat {
+  bool aac = 1;
+  bool amr = 2;
+  bool au = 3;
+  bool awb = 4;
+  bool compactmidi = 5;
+  bool digiplug = 6;
+  bool evrc = 7;
+  bool imelody = 8;
+  bool midi_monophonic = 9;
+  bool midi_polyphonic = 10;
+  bool mld = 11;
+  bool mmf = 12;
+  bool mp3 = 13;
+  bool nokia_ringtone = 14;
+  bool qcelp = 15;
+  bool rmf = 16;
+  bool smf = 17;
+  bool sp_midi = 18;
+  bool wav = 19;
+  bool xmf = 20;
+  uint32 voices = 21;
+}
+
+message FlashLite {
+  bool fl_browser = 1;
+  bool fl_screensaver = 2;
+  bool fl_standalone = 3;
+  bool fl_sub_lcd = 4;
+  bool fl_wallpaper = 5;
+  bool full_flash_support = 6;
+  string flash_lite_version = 7;
+}
+
+message Css {
+  bool css_spriting = 1;
+  bool css_supports_width_as_percentage = 2;
+  string css_border_image = 3;
+  string css_gradient = 4;
+  string css_rounded_corners = 5;
+}
+
+message Transcoding {
+  bool is_transcoder = 1;
+  string transcoder_ua_header = 2;
+}
+
+message Rss {
+  bool rss_support = 1;
+}
+
+message Pdf {
+  bool pdf_support = 1;
+}
+
+message Playback {
+  bool hinted_progressive_download = 1;
+  bool playback_3g2 = 2;
+  bool playback_3gpp = 3;
+  bool playback_acodec_qcelp = 4;
+  bool playback_mov = 5;
+  bool playback_mp4 = 6;
+  bool progressive_download = 7;
+  sint32 playback_vcodec_h263_0 = 8;
+  sint32 playback_vcodec_h263_3 = 9;
+  sint32 playback_vcodec_h264_bp = 10;
+  sint32 playback_vcodec_mpeg4_asp = 11;
+  sint32 playback_vcodec_mpeg4_sp = 12;
+  string playback_acodec_aac = 13;
+  string playback_acodec_amr = 14;
+  string playback_real_media = 15;
+  string playback_wmv = 16;
+  uint32 playback_df_size_limit = 17;
+  uint32 playback_directdownload_size_limit = 18;
+  uint32 playback_inline_size_limit = 19;
+  uint32 playback_oma_size_limit = 20;
+}
+
+message HtmlUi {
+  bool handheldfriendly = 1;
+  bool image_inlining = 2;
+  bool mobileoptimized = 3;
+  bool viewport_supported = 4;
+  string canvas_support = 5;
+  string html_preferred_dtd = 6;
+  string viewport_initial_scale = 7;
+  string viewport_maximum_scale = 8;
+  string viewport_minimum_scale = 9;
+  string viewport_userscalable = 10;
+  string viewport_width = 11;
+}
+
+message Smarttv {
+  bool is_smarttv = 1;
+}
+
+message Chips {
+  bool nfc_support = 1;
+}
+
+*/

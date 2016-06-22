@@ -1,0 +1,43 @@
+syntax = "proto3";
+package logger;
+
+// GeoIp represents geo-location information about the User.
+message GeoIp {
+  // Isp represents the Isp of the user.
+  message Isp {
+    // autonomous_system_number or ASN (as defined on Wikipedia) is a
+    // collection of connected Internet Protocol (IP) routing prefixes under
+    // the control of one or more network operators on behalf of a single
+    // administrative entity or domain that presents a common, clearly
+    // defined routing policy to the Internet.
+    uint32 autonomous_system_number = 1;
+    // autonomous_system_organization is the organisation (TODO: define this)
+    string autonomous_system_organization = 2;
+    // name represents the ISP name.
+    string name = 3;
+    // organization represents the name of the organisation.
+    string organization = 4;
+  }
+
+  // ip represents the IP of the user in v4 or v6.
+  oneof ip {
+    // v4 represents the IPv4 address.
+    string v4 = 1;
+    // v6 represents the IPv6 address.
+    string v6 = 2;
+  }
+
+  // isp represents the ISP as defined in the message Isp above.
+  Isp isp = 3;
+  // country is a two character country code as defined in ISO 3167-1.
+  string country = 4;
+  // city is the full city name.
+  string city = 5;
+  // postalCode is the postal code.
+  string postal_code = 6;
+  // the time_zone represents the TZ as defined on
+  // https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  string time_zone = 7;
+  // metro_code represents the Phone Area code.
+  uint32 metro_code = 8;
+}

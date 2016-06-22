@@ -1,0 +1,26 @@
+syntax = "proto3";
+package logger;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "event.proto";
+import "error.proto";
+
+// Logger defines a service for logging an event or an error.
+service Logger {
+  // LogEvent is an RPC endpoint for logging an event.
+  rpc LogEvent (Event) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+        post: "/v1/log/event"
+        body: "*"
+    };
+  }
+
+  // LogError is an RPC endpoint for logging an error.
+  rpc LogError (Error) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+        post: "/v1/log/error"
+        body: "*"
+    };
+  }
+}

@@ -1,0 +1,51 @@
+syntax = "proto3";
+package logger;
+
+import "ad_request.proto";
+import "google/protobuf/timestamp.proto";
+import "publisher.proto";
+import "user.proto";
+
+// Event defines a struct representing an 'event' that includes a type and all
+// the related information.
+message Event {
+  // Type defines the type of the event.
+  enum Type {
+    UNKNOWN = 0;
+
+    BOOTLOADER_LOADED = 100;
+    SCRIPT_LOADED = 101;
+
+    SESSION_PING = 200;
+    PAGE_VIEW = 201;
+
+    REQUEST = 300;
+    FILLED = 301;
+    IMPRESSION = 302;
+
+    START = 400;
+    SKIP = 401;
+    CLICK = 402;
+    QUARTILE1 = 403;
+    QUARTILE2 = 404;
+    QUARTILE3 = 405;
+    COMPLETE = 406;
+  }
+
+  // timestamp is the timestamp of when grpc-logger has recevied the message.
+  google.protobuf.Timestamp timestamp = 1;
+  // type is an instance of Type enum as defined above.
+  Type type = 2;
+  // publisher is an instance of Publisher defined in publisher.proto.
+  Publisher publisher = 3;
+  // user is an instance of User defined in user.proto.
+  User user = 4;
+  // ad_request represents the ad_request that concerns this message. This is
+  // only available for 300 <= type < 500
+  AdRequest ad_request = 5;
+  // custom is a map<string, string> that includes any data that a publisher
+  // wishes to include with an event.
+  map<string, string> custom = 6;
+  // on_screen, if true, the event initiator was visible on the screen.
+  bool on_screen = 7;
+}

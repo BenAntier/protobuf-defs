@@ -1,0 +1,460 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "rpc.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/log/error": {
+      "post": {
+        "summary": "LogError is an RPC endpoint for logging an error.",
+        "operationId": "LogError",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loggerError"
+            }
+          }
+        ],
+        "tags": [
+          "Logger"
+        ]
+      }
+    },
+    "/v1/log/event": {
+      "post": {
+        "summary": "LogEvent is an RPC endpoint for logging an event.",
+        "operationId": "LogEvent",
+        "responses": {
+          "200": {
+            "description": "Description",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loggerEvent"
+            }
+          }
+        ],
+        "tags": [
+          "Logger"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ErrorCode": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SCRIPT_LOADING",
+        "RPC_CALL",
+        "HTTP_CALL",
+        "AD_SERVER",
+        "DOM_NOT_FOUND"
+      ],
+      "default": "UNKNOWN",
+      "title": "Code defines the code of the error"
+    },
+    "GeoIpIsp": {
+      "type": "object",
+      "properties": {
+        "autonomous_system_number": {
+          "type": "integer",
+          "format": "int64",
+          "description": "autonomous_system_number or ASN (as defined on Wikipedia) is a\ncollection of connected Internet Protocol (IP) routing prefixes under\nthe control of one or more network operators on behalf of a single\nadministrative entity or domain that presents a common, clearly\ndefined routing policy to the Internet."
+        },
+        "autonomous_system_organization": {
+          "type": "string",
+          "format": "string",
+          "title": "autonomous_system_organization is the organisation (TODO: define this)"
+        },
+        "name": {
+          "type": "string",
+          "format": "string",
+          "description": "name represents the ISP name."
+        },
+        "organization": {
+          "type": "string",
+          "format": "string",
+          "description": "organization represents the name of the organisation."
+        }
+      },
+      "description": "Isp represents the Isp of the user."
+    },
+    "PageScheme": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "HTTP",
+        "HTTPS"
+      ],
+      "default": "UNKNOWN",
+      "description": "Scheme defines a struct for the scheme."
+    },
+    "loggerAdRequest": {
+      "type": "object"
+    },
+    "loggerDevice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "string",
+          "description": "id can be our cookie id, IDFA or AAID."
+        },
+        "type": {
+          "$ref": "#/definitions/loggerDeviceType",
+          "description": "Type represents the type of the cookie or device id recorded in the id\nbelow."
+        }
+      },
+      "description": "Device represents a device ID or a cookie ID depending on where the event\nwas sent from."
+    },
+    "loggerDeviceType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "DESKTOP_COOKIE",
+        "MOBILE_COOKIE",
+        "IDFA",
+        "AAID"
+      ],
+      "default": "UNKNOWN",
+      "description": "- UNKNOWN: UNKNOWN is the default device ID and should be considered invalid.\n - DESKTOP_COOKIE: DESKTOP_COOKIE represents a cookie ID that was sent from a desktop\nbrowser.\n - MOBILE_COOKIE: MOBILE_COOKIE represents a cookie ID that was sent from a mobile phone\nbrowser.\n - IDFA: IDFA represents an identifier for advertisers and is available only on\niOS devices.\n - AAID: AAID represents an identifier for advertisers and is available only on\nAndroid devices.",
+      "title": "Type represents the type of the device ID"
+    },
+    "loggerError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "code is an instance of Code defined above."
+        },
+        "custom": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "custom is a map\u003cstring, string\u003e that includes any data that a publisher\nwishes to include with an event."
+        },
+        "message": {
+          "type": "string",
+          "format": "string",
+          "description": "message is the error message."
+        },
+        "on_screen": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "on_screen, if true, the event initiator was visible on the screen."
+        },
+        "publisher": {
+          "$ref": "#/definitions/loggerPublisher",
+          "description": "publisher is an instance of Publisher defined in publisher.proto."
+        },
+        "stack_trace": {
+          "type": "string",
+          "format": "string",
+          "description": "stack_trace is only available if it's an exception that was caught."
+        },
+        "timestamp": {
+          "$ref": "#/definitions/protobufTimestamp",
+          "description": "timestamp is the timestamp of when grpc-logger has recevied the message."
+        },
+        "user": {
+          "$ref": "#/definitions/loggerUser",
+          "description": "user is an instance of User defined in user.proto."
+        }
+      },
+      "description": "Error defines a struct representing an 'error', including a code and all the\nrelated information."
+    },
+    "loggerEvent": {
+      "type": "object",
+      "properties": {
+        "ad_request": {
+          "$ref": "#/definitions/loggerAdRequest",
+          "title": "ad_request represents the ad_request that concerns this message. This is\nonly available for 300 \u003c= type \u003c 500"
+        },
+        "custom": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "custom is a map\u003cstring, string\u003e that includes any data that a publisher\nwishes to include with an event."
+        },
+        "on_screen": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "on_screen, if true, the event initiator was visible on the screen."
+        },
+        "publisher": {
+          "$ref": "#/definitions/loggerPublisher",
+          "description": "publisher is an instance of Publisher defined in publisher.proto."
+        },
+        "timestamp": {
+          "$ref": "#/definitions/protobufTimestamp",
+          "description": "timestamp is the timestamp of when grpc-logger has recevied the message."
+        },
+        "type": {
+          "$ref": "#/definitions/loggerEventType",
+          "description": "type is an instance of Type enum as defined above."
+        },
+        "user": {
+          "$ref": "#/definitions/loggerUser",
+          "description": "user is an instance of User defined in user.proto."
+        }
+      },
+      "description": "Event defines a struct representing an 'event' that includes a type and all\nthe related information."
+    },
+    "loggerEventType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "BOOTLOADER_LOADED",
+        "SCRIPT_LOADED",
+        "SESSION_PING",
+        "PAGE_VIEW",
+        "REQUEST",
+        "FILLED",
+        "IMPRESSION",
+        "START",
+        "SKIP",
+        "CLICK",
+        "QUARTILE1",
+        "QUARTILE2",
+        "QUARTILE3",
+        "COMPLETE"
+      ],
+      "default": "UNKNOWN",
+      "description": "Type defines the type of the event."
+    },
+    "loggerGeoIp": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string",
+          "format": "string",
+          "description": "city is the full city name."
+        },
+        "country": {
+          "type": "string",
+          "format": "string",
+          "description": "country is a two character country code as defined in ISO 3167-1."
+        },
+        "isp": {
+          "$ref": "#/definitions/GeoIpIsp",
+          "description": "isp represents the ISP as defined in the message Isp above."
+        },
+        "metro_code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "metro_code represents the Phone Area code."
+        },
+        "postal_code": {
+          "type": "string",
+          "format": "string",
+          "description": "postalCode is the postal code."
+        },
+        "time_zone": {
+          "type": "string",
+          "format": "string",
+          "title": "the time_zone represents the TZ as defined on\nhttps://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+        },
+        "v4": {
+          "type": "string",
+          "format": "string",
+          "description": "v4 represents the IPv4 address."
+        },
+        "v6": {
+          "type": "string",
+          "format": "string",
+          "description": "v6 represents the IPv6 address."
+        }
+      },
+      "description": "GeoIp represents geo-location information about the User."
+    },
+    "loggerPage": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "format": "string",
+          "description": "domain is the domain (including any sub-domain) for the page."
+        },
+        "load_time": {
+          "$ref": "#/definitions/protobufDuration",
+          "description": "load_time is the duration calculated between 'navigationStart' and\n'loadEventEnd' available on the 'window.performance.timing' browser\nJavaScript object."
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": "params is a map\u003cstring, string\u003e that represents the query params."
+        },
+        "path": {
+          "type": "string",
+          "format": "string",
+          "description": "path is the path of the page (without the domain or the query params)."
+        },
+        "referrer": {
+          "type": "string",
+          "format": "string",
+          "description": "referrer is the referrer for the page."
+        },
+        "scheme": {
+          "$ref": "#/definitions/PageScheme",
+          "description": "scheme is either http or https and is defined in the Scheme above."
+        },
+        "url": {
+          "type": "string",
+          "format": "string",
+          "description": "url is the full URL including the scheme, the domain, the path and the\nparams."
+        }
+      },
+      "description": "Page defines a struct to collect all the information about a Page like the\nURL, the path, the referral etc..."
+    },
+    "loggerPublisher": {
+      "type": "object",
+      "properties": {
+        "script_id": {
+          "type": "string",
+          "format": "string",
+          "description": "script_id represents a custom id that the publisher can set through the\njavascript bootloader. It allows the publisher to do things like A/B\ntesting, per-page metrics, per-site metrics, etc.."
+        },
+        "uuid": {
+          "type": "string",
+          "format": "string",
+          "description": "uuid represents the id of the publisher as recorded in Publica's database."
+        }
+      },
+      "description": "Publisher represents the Publisher (or customer) of Publica."
+    },
+    "loggerSession": {
+      "type": "object",
+      "properties": {
+        "adblocker": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "adblocker represents the adblocker status of the session."
+        },
+        "id": {
+          "type": "string",
+          "format": "string",
+          "title": "id represents the session id"
+        },
+        "is_bot": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "is_bot if true means the user was detected as a bot."
+        },
+        "user_agent": {
+          "type": "string",
+          "format": "string",
+          "description": "user_agent represents the user agent as sent by the browser."
+        },
+        "wurfl": {
+          "$ref": "#/definitions/loggerWurfl",
+          "description": "wurfl is an instance of Wurfl defined in wurfl.proto."
+        }
+      },
+      "description": "Session represents information about a user session."
+    },
+    "loggerUser": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "$ref": "#/definitions/loggerDevice",
+          "description": "device is an instance of the Device struct defined above."
+        },
+        "location": {
+          "$ref": "#/definitions/loggerGeoIp",
+          "description": "location is an instance of the GeoIp struct defined above."
+        },
+        "page": {
+          "$ref": "#/definitions/loggerPage",
+          "description": "page is an instance of the Page struct defined above."
+        },
+        "publisher_device": {
+          "$ref": "#/definitions/loggerDevice",
+          "description": "publisher_device is an instance of the Device struct defined above."
+        },
+        "session": {
+          "$ref": "#/definitions/loggerSession",
+          "description": "session is an instance of the Session struct defined above."
+        }
+      },
+      "description": "User represents the end-user of the website."
+    },
+    "loggerWurfl": {
+      "type": "object"
+    },
+    "protobufDuration": {
+      "type": "object",
+      "properties": {
+        "nanos": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Signed fractions of a second at nanosecond resolution of the span\nof time. Durations less than one second are represented with a 0\n`seconds` field and a positive or negative `nanos` field. For durations\nof one second or more, a non-zero value for the `nanos` field must be\nof the same sign as the `seconds` field. Must be from -999,999,999\nto +999,999,999 inclusive."
+        },
+        "seconds": {
+          "type": "string",
+          "format": "int64",
+          "description": "Signed seconds of the span of time. Must be from -315,576,000,000\nto +315,576,000,000 inclusive."
+        }
+      },
+      "description": "A Duration represents a signed, fixed-length span of time represented\nas a count of seconds and fractions of seconds at nanosecond\nresolution. It is independent of any calendar and concepts like \"day\"\nor \"month\". It is related to Timestamp in that the difference between\ntwo Timestamp values is a Duration and it can be added or subtracted\nfrom a Timestamp. Range is approximately +-10,000 years.\n\nExample 1: Compute Duration from two Timestamps in pseudo code.\n\n    Timestamp start = ...;\n    Timestamp end = ...;\n    Duration duration = ...;\n\n    duration.seconds = end.seconds - start.seconds;\n    duration.nanos = end.nanos - start.nanos;\n\n    if (duration.seconds \u003c 0 \u0026\u0026 duration.nanos \u003e 0) {\n      duration.seconds += 1;\n      duration.nanos -= 1000000000;\n    } else if (durations.seconds \u003e 0 \u0026\u0026 duration.nanos \u003c 0) {\n      duration.seconds -= 1;\n      duration.nanos += 1000000000;\n    }\n\nExample 2: Compute Timestamp from Timestamp + Duration in pseudo code.\n\n    Timestamp start = ...;\n    Duration duration = ...;\n    Timestamp end = ...;\n\n    end.seconds = start.seconds + duration.seconds;\n    end.nanos = start.nanos + duration.nanos;\n\n    if (end.nanos \u003c 0) {\n      end.seconds -= 1;\n      end.nanos += 1000000000;\n    } else if (end.nanos \u003e= 1000000000) {\n      end.seconds += 1;\n      end.nanos -= 1000000000;\n    }"
+    },
+    "protobufEmpty": {
+      "type": "object",
+      "description": "service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "title": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:"
+    },
+    "protobufTimestamp": {
+      "type": "object",
+      "properties": {
+        "nanos": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Non-negative fractions of a second at nanosecond resolution. Negative\nsecond values with fractions must still have non-negative nanos values\nthat count forward in time. Must be from 0 to 999,999,999\ninclusive."
+        },
+        "seconds": {
+          "type": "string",
+          "format": "int64",
+          "description": "Represents seconds of UTC time since Unix epoch\n1970-01-01T00:00:00Z. Must be from from 0001-01-01T00:00:00Z to\n9999-12-31T23:59:59Z inclusive."
+        }
+      },
+      "description": "A Timestamp represents a point in time independent of any time zone\nor calendar, represented as seconds and fractions of seconds at\nnanosecond resolution in UTC Epoch time. It is encoded using the\nProleptic Gregorian Calendar which extends the Gregorian calendar\nbackwards to year one. It is encoded assuming all minutes are 60\nseconds long, i.e. leap seconds are \"smeared\" so that no leap second\ntable is needed for interpretation. Range is from\n0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z.\nBy restricting to that range, we ensure that we can convert to\nand from  RFC 3339 date strings.\nSee [https://www.ietf.org/rfc/rfc3339.txt](https://www.ietf.org/rfc/rfc3339.txt).\n\nExample 1: Compute Timestamp from POSIX `time()`.\n\n    Timestamp timestamp;\n    timestamp.set_seconds(time(NULL));\n    timestamp.set_nanos(0);\n\nExample 2: Compute Timestamp from POSIX `gettimeofday()`.\n\n    struct timeval tv;\n    gettimeofday(\u0026tv, NULL);\n\n    Timestamp timestamp;\n    timestamp.set_seconds(tv.tv_sec);\n    timestamp.set_nanos(tv.tv_usec * 1000);\n\nExample 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.\n\n    FILETIME ft;\n    GetSystemTimeAsFileTime(\u0026ft);\n    UINT64 ticks = (((UINT64)ft.dwHighDateTime) \u003c\u003c 32) | ft.dwLowDateTime;\n\n    // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z\n    // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.\n    Timestamp timestamp;\n    timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));\n    timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));\n\nExample 4: Compute Timestamp from Java `System.currentTimeMillis()`.\n\n    long millis = System.currentTimeMillis();\n\n    Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)\n        .setNanos((int) ((millis % 1000) * 1000000)).build();\n\n\nExample 5: Compute Timestamp from current time in Python.\n\n    now = time.time()\n    seconds = int(now)\n    nanos = int((now - seconds) * 10**9)\n    timestamp = Timestamp(seconds=seconds, nanos=nanos)"
+    }
+  }
+}

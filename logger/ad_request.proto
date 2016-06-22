@@ -1,0 +1,112 @@
+syntax = "proto3";
+package logger;
+
+message AdRequest{}
+
+// TODO: Visit this once we get to the recovery part.
+/*
+
+import "google/protobuf/duration.proto";
+
+// AdRequest defines an ad request struct. An ad request has an auction and
+// yields an Ad or a NoAd result.
+message AdRequest {
+  // auctions is zero or more auctions, the order of the auctions follows the
+  // waterfall principle.
+  repeated Auction auctions = 1;
+  // result can be either an Ad or a Noad objects.
+  oneof result {
+    // ad is an instance of Ad. If set, means this AdRequest has yielded an
+    // ad.
+    Ad ad = 2;
+    // noad is an instance of Noad. If set, means this AdRequest did not yield
+    // an Ad.
+    Noad noad = 3;
+  }
+}
+
+// Auction defines an auction struct.
+message Auction {
+  // id is the Id of the auction.
+  string id = 1;
+  // The list of buyers that participated in the auction.
+  repeated Buyer buyers = 2;
+  // buyer_id is the id of the buyer that won the auction.
+  string buyer_id = 3;
+  // bidder_id is the id of the bidder that won the auction.
+  string bidder_id = 4;
+}
+
+message Buyer {
+  // id is the Id of the buyer.
+  string id = 1;
+  // bidders are the list of bidders that are bidding through this buyer.
+  repeated Bidder bidders = 2;
+}
+
+message Bidder {
+  // id is the Id of the bidder
+  string id = 1;
+  string bid_id = 2;
+  // revenue represents 1/1000 of the CPM that an ad was purchased for.
+  float revenue = 2;
+  // advertiser is the advertiser bidding through this bidder.
+  Advertiser advertiser = 3;
+}
+
+message Advertiser {
+  string id = 1;
+  string name = 2;
+  string category = 3;
+  string category_id = 4;
+}
+
+message Ad {
+  enum Position {
+    UNKNOWN_POSITION = 0;
+
+    PREROLL = 100;
+    MIDROLL = 101;
+    POSTROLL = 102;
+
+    OUTSTREAM = 200;
+  }
+
+  enum Format {
+    UNKNOWN_FORMAT = 0;
+
+    VAST2 = 10;
+    VAST3 = 11;
+    VAST4 = 12;
+
+    VPAID1 = 20;
+    VPAID2 = 21;
+
+    MRAID1 = 30;
+    MRAID2 = 31;
+  }
+
+  // position represents the position of the impression.
+  Position position = 1;
+  //
+  google.protobuf.Duration duration = 2;
+  Format format = 3;
+  bool skippable = 4;
+  // revenue represents 1/1000 of the CPM that an ad was purchased for.
+  float revenue = 5;
+}
+
+message Noad {
+  enum Reason {
+    UNKNOWN = 0;
+
+    NOBUYER = 100;
+
+    ERROR = 200;
+  }
+
+  Reason reason = 1;
+  Buyer buyer = 2;
+}
+
+*/

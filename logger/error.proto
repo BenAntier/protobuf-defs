@@ -1,0 +1,42 @@
+syntax = "proto3";
+package logger;
+
+import "google/protobuf/timestamp.proto";
+import "publisher.proto";
+import "user.proto";
+
+// Error defines a struct representing an 'error', including a code and all the
+// related information.
+message Error {
+  // Code defines the code of the error
+  enum Code {
+    UNKNOWN = 0;
+
+    SCRIPT_LOADING = 100;
+
+    RPC_CALL = 200;
+    HTTP_CALL = 201;
+
+    AD_SERVER = 300;
+
+    DOM_NOT_FOUND = 400;
+  }
+
+  // timestamp is the timestamp of when grpc-logger has recevied the message.
+  google.protobuf.Timestamp timestamp = 1;
+  // code is an instance of Code defined above.
+  Code code = 2;
+  // message is the error message.
+  string message = 3;
+  // stack_trace is only available if it's an exception that was caught.
+  string stack_trace = 4;
+  // publisher is an instance of Publisher defined in publisher.proto.
+  Publisher publisher = 5;
+  // user is an instance of User defined in user.proto.
+  User user = 6;
+  // custom is a map<string, string> that includes any data that a publisher
+  // wishes to include with an event.
+  map<string, string> custom = 7;
+  // on_screen, if true, the event initiator was visible on the screen.
+  bool on_screen = 8;
+}

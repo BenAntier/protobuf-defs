@@ -1,9 +1,12 @@
-.PHONY: all proto test get-deps
+.PHONY: all proto test get-deps lint
 
 all:
 	make -C logger all
 
-proto:
+lint:
+	make -C logger lint
+
+proto: lint
 	make -C logger proto
 
 get-deps:
