@@ -7,6 +7,7 @@ get-deps:
 	go get -u github.com/gengo/grpc-gateway/protoc-gen-swagger
 	go get -u github.com/golang/protobuf/protoc-gen-go
 	go get -u github.com/ckaznocha/protoc-gen-lint
+	go get -u github.com/jteeuwen/go-bindata/go-bindata
 	go get -u ./...
 
 test: proto
@@ -38,6 +39,8 @@ rpc.swagger.json: proto
 
 rpc.swagger.pb.go: rpc.swagger.json
 	go-bindata -o rpc.swagger.pb.go -pkg logger rpc.swagger.json
+
+swagger: rpc.swagger.pb.go
 
 lint:
 	protoc -I/usr/local/include \

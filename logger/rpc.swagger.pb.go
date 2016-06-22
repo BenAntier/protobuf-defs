@@ -83,7 +83,7 @@ func rpcSwaggerJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "rpc.swagger.json", size: 19574, mode: os.FileMode(420), modTime: time.Unix(1466624904, 0)}
+	info := bindataFileInfo{name: "rpc.swagger.json", size: 19574, mode: os.FileMode(420), modTime: time.Unix(1466626611, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

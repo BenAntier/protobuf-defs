@@ -7,7 +7,7 @@ matrix:
     - go: tip
 env:
   global:
-    - PROTOBUF_VERSION=3.0.0-beta-3.1
+    - PROTOBUF_VERSION=3.0.0-beta-3.2
 cache:
   directories:
     - $HOME/protobuf-$PROTOBUF_VERSION
@@ -18,7 +18,6 @@ notifications:
 install:
   - .travis/install-protobuf.sh
   - export PATH=$PATH:$HOME/protobuf-$PROTOBUF_VERSION/bin
-  - go get -u github.com/golang/protobuf/protoc-gen-go
   - make get-deps
 script:
-  - make -B check-proto-pre-compiled test
+  - make -B ci
