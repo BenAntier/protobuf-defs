@@ -1,0 +1,5 @@
+syntax = "proto3";
+package logger;
+
+// Subscription includes the details of this publisher's subscription.
+message Subscription {}

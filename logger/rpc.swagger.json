@@ -244,6 +244,7 @@
         "SESSION_PING",
         "PAGE_VIEW",
         "REQUEST",
+        "UNFILLED",
         "FILLED",
         "IMPRESSION",
         "START",
@@ -352,6 +353,10 @@
           "format": "string",
           "description": "script_id represents a custom id that the publisher can set through the\njavascript bootloader. It allows the publisher to do things like A/B\ntesting, per-page metrics, per-site metrics, etc.."
         },
+        "subscription": {
+          "$ref": "#/definitions/loggerSubscription",
+          "description": "subscription is an instance of Subscription defined in subscription.proto."
+        },
         "uuid": {
           "type": "string",
           "format": "string",
@@ -389,6 +394,10 @@
         }
       },
       "description": "Session represents information about a user session."
+    },
+    "loggerSubscription": {
+      "type": "object",
+      "description": "Subscription includes the details of this publisher's subscription."
     },
     "loggerUser": {
       "type": "object",

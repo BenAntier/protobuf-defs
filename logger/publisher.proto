@@ -1,6 +1,8 @@
 syntax = "proto3";
 package logger;
 
+import "subscription.proto";
+
 // Publisher represents the Publisher (or customer) of Publica.
 message Publisher {
   // uuid represents the id of the publisher as recorded in Publica's database.
@@ -9,4 +11,6 @@ message Publisher {
   // javascript bootloader. It allows the publisher to do things like A/B
   // testing, per-page metrics, per-site metrics, etc..
   string script_id = 2;
+  // subscription is an instance of Subscription defined in subscription.proto.
+  Subscription subscription = 3;
 }

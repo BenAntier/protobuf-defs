@@ -20,8 +20,9 @@ message Event {
     PAGE_VIEW = 201;
 
     REQUEST = 300;
-    FILLED = 301;
-    IMPRESSION = 302;
+    UNFILLED = 301;
+    FILLED = 302;
+    IMPRESSION = 303;
 
     START = 400;
     SKIP = 401;

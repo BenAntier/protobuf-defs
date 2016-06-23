@@ -15,6 +15,7 @@ It is generated from these files:
 	publisher.proto
 	rpc.proto
 	session.proto
+	subscription.proto
 	user.proto
 	wurfl.proto
 
@@ -27,6 +28,7 @@ It has these top-level messages:
 	Page
 	Publisher
 	Session
+	Subscription
 	User
 	Wurfl
 */
